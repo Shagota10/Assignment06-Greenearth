@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plant Explorer</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            /* slate-900 */
+            --card: #111827;
+            /* gray-900 */
+            --muted: #94a3b8;
+            /* slate-400 */
+            --text: #e5e7eb;
+            /* gray-200 */
+            --accent: #22c55e;
+            /* green-500 */
+            --chip: #1f2937;
+            /* gray-800 */
+            --chip-active: #065f46;
+            /* emerald-800 */
+            --border: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: radial-gradient(1200px 1200px at 100% -10%, rgba(34, 197, 94, 0.08), transparent),
+                radial-gradient(1200px 1200px at -10% 110%, rgba(59, 130, 246, 0.08), transparent), var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px
+        }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .title {
+            font-weight: 800;
+            font-size: clamp(22px, 3vw, 32px);
+            letter-spacing: 0.3px
+        }
+
+        .searchbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+            max-width: 520px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 10px 12px
+        }
+
+        .searchbar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 16px
+        }
+
+        .searchbar button {
+            background: var(--accent);
+            color: #04140b;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .pillbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0
+        }
+
+        .pill {
+            border: 1px solid var(--border);
+            background: var(--chip);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all .2s;
+            font-size: 14px
+        }
+
+        .pill.active {
+            background: var(--chip-active);
+            border-color: #064e3b
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 16px
+        }
+
+        @media(min-width:560px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(min-width:900px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #0b1220
+        }
+
+        .card .content {
+            padding: 14px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .name {
+            font-weight: 700
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn {
+            background: #0ea5e9;
+            color: #001019;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .btn.secondary {
+            background: #1f2937;
+            color: #e2e8f0;
+            border: 1px solid var(--border)
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .status {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        /* Modal */
+        dialog {
+            border: none;
+            border-radius: 20px;
+            max-width: 860px;
+            width: 96%;
+            background: #0b1020;
+            color: var(--text);
+            padding: 0
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, .6)
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0
+        }
+
+        @media(min-width:760px) {
+            .modal-body {
+                grid-template-columns: 1.2fr 1fr
+            }
+        }
+
+        .modal-left {
+            padding: 18px
+        }
+
+        .modal-left img {
+            width: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+            background: #040811
+        }
+
+        .modal-right {
+            padding: 18px;
+            border-left: 1px solid var(--border);
+            background: #0a1222
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #cbd5e1
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        .meta .item {
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px
+        }
+
+        .skeleton {
+            position: relative;
+            overflow: hidden
+        }
+
+        .shimmer {
+            animation: shimmer 1.8s infinite linear;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .06), rgba(255, 255, 255, 0));
+            position: absolute;
+            inset: 0
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%)
+            }
+
+            100% {
+                transform: translateX(100%)
+            }
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .link {
+            color: #93c5fd;
+            text-decoration: none
+        }
+
+        footer {
+            margin: 28px 0;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="title">🌿 Plant Explorer</div>
+            <div class="toolbar">
+                <div class="searchbar">
+                    <input id="searchInput" placeholder="Search plants by name…" />
+                    <button id="searchBtn" title="Search">Search</button>
+                </div>
+            </div>
+        </header>
+
+        <section id="categories" class="pillbar" aria-label="Categories"></section>
+
+        <div class="row" style="margin-top:6px; margin-bottom:8px">
+            <div class="status" id="status">Loading plants…</div>
+            <div class="status" id="count"></div>
+        </div>
+
+        <main id="grid" class="grid" aria-live="polite"></main>
+
+        <footer>
+            Built with <a class="link" href="https://openapi.programming-hero.com" target="_blank"
+                rel="noreferrer">Programming Hero Open API</a>
+        </footer>
+    </div>
+
+    <!-- Details Modal -->
+    <dialog id="detailsModal">
+        <div class="modal-body">
+            <div class="modal-left">
+                <img id="modalImg" alt="Plant image" src="" />
+            </div>
+            <div class="modal-right">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+                    <h2 id="modalTitle" class="title" style="font-size:22px;margin:0"></h2>
+                    <button class="btn secondary" onclick="closeModal()">Close</button>
+                </div>
+                <p id="modalDesc" class="muted" style="margin:8px 0 10px"></p>
+                <div class="meta" id="modalMeta"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        const API = {
+            all: 'https://openapi.programming-hero.com/api/plants',
+            cats: 'https://openapi.programming-hero.com/api/categories',
+            byCat: id => `https://openapi.programming-hero.com/api/category/${id}`,
+            detail: id => `https://openapi.programming-hero.com/api/plant/${id}`,
+        };
+
+        const els = {
+            grid: document.getElementById('grid'),
+            cats: document.getElementById('categories'),
+            status: document.getElementById('status'),
+            count: document.getElementById('count'),
+            search: document.getElementById('searchInput'),
+            searchBtn: document.getElementById('searchBtn'),
+            modal: document.getElementById('detailsModal'),
+            modalImg: document.getElementById('modalImg'),
+            modalTitle: document.getElementById('modalTitle'),
+            modalDesc: document.getElementById('modalDesc'),
+            modalMeta: document.getElementById('modalMeta'),
+        };
+
+        let state = {
+            plants: [],
+            filtered: [],
+            categories: [],
+            activeCat: 'all',
+        };
+
+        function setStatus(text) { els.status.textContent = text || '' }
+        function setCount(n) { els.count.textContent = n ? `${n} item${n > 1 ? 's' : ''}` : '' }
+
+        function cardSkeleton() {
+            const div = document.createElement('div');
+            div.className = 'card skeleton';
+            div.innerHTML = `
+        <div style="position:relative">
+          <div style="width:100%;aspect-ratio:4/3;background:#0b1220"></div>
+          <div class="shimmer"></div>
+        </div>
+        <div class="content">
+          <div style="height:18px;background:#111827;border-radius:8px"></div>
+          <div style="height:14px;background:#0f172a;border-radius:8px;width:60%"></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <div style="height:34px;background:#0f172a;border-radius:10px;flex:1"></div>
+            <div style="height:34px;background:#0f172a;border-radius:10px;flex:1"></div>
+          </div>
+        </div>`;
+            return div;
+        }
+
+        function renderSkeletons(n = 6) {
+            els.grid.innerHTML = '';
+            for (let i = 0; i < n; i++) els.grid.appendChild(cardSkeleton());
+        }
+
+        function renderCategories() {
+            els.cats.innerHTML = '';
+            const allBtn = chip('All', 'all');
+            els.cats.appendChild(allBtn);
+            state.categories.forEach(c => {
+                const id = c?.id || c?.category_id || c?.slug || c?.title || c; // best-effort
+                const name = c?.name || c?.category || c?.title || c?.label || `Cat ${id}`;
+                els.cats.appendChild(chip(name, id));
+            });
+            activateChip(state.activeCat);
+        }
+
+        function chip(label, id) {
+            const b = document.createElement('button');
+            b.className = 'pill';
+            b.dataset.id = id;
+            b.textContent = label;
+            b.onclick = () => {
+                state.activeCat = id;
+                filterAndRender();
+                activateChip(id);
+            };
+            return b;
+        }
+
+        function activateChip(id) {
+            document.querySelectorAll('.pill').forEach(el => el.classList.toggle('active', el.dataset.id == id));
+        }
+
+        function toCard(p) {
+            const id = p?.id || p?._id || p?.plantId || p?.plant_id || p?.slug || '';
+            const name = p?.name || p?.plant_name || p?.title || p?.common_name || 'Unknown Plant';
+            const img = p?.image || p?.img || p?.thumbnail || p?.photo || 'https://images.unsplash.com/photo-1463320898484-cdee8141c787?q=80&w=800&auto=format&fit=crop';
+            const price = p?.price || p?.cost || p?.amount || null;
+            const category = p?.category || p?.category_name || p?.type || '';
+
+            const card = document.createElement('article');
+            card.className = 'card';
+            card.innerHTML = `
+        <img src="${img}" alt="${name}" loading="lazy" />
+        <div class="content">
+          <div class="name">${name}</div>
+          <div class="muted">${category || '—'}</div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn secondary" aria-label="Show details">Details</button>
+            <button class="btn" aria-label="Buy now">${price ? `Buy • $${price}` : 'Add to cart'}</button>
+          </div>
+        </div>`;
+            card.querySelector('.secondary').onclick = () => openDetail(id, name, img);
+            return card;
+        }
+
+        function renderGrid(items) {
+            els.grid.innerHTML = '';
+            if (!items?.length) { els.grid.innerHTML = '<div class="status">No plants found.</div>'; setCount(0); return; }
+            items.forEach(p => els.grid.appendChild(toCard(p)));
+            setCount(items.length);
+        }
+
+        function filterAndRender() {
+            const q = els.search.value.trim().toLowerCase();
+            const byText = q
+                ? state.plants.filter(p => (p?.name || p?.plant_name || p?.title || p?.common_name || '').toLowerCase().includes(q))
+                : [...state.plants];
+            if (state.activeCat === 'all') {
+                state.filtered = byText;
+            } else {
+                state.filtered = byText.filter(p => {
+                    const cat = (p?.category || p?.category_name || p?.type || '').toString().toLowerCase();
+                    return cat.includes(String(state.activeCat).toLowerCase()) || (p?.category_id == state.activeCat);
+                });
+            }
+            renderGrid(state.filtered);
+            setStatus('');
+        }
+
+        async function fetchJSON(url) {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+
+        async function init() {
+            try {
+                renderSkeletons(9);
+                setStatus('Loading categories & plants…');
+                const [catsRes, plantsRes] = await Promise.all([
+                    fetchJSON(API.cats).catch(() => ({ categories: [] })),
+                    fetchJSON(API.all).catch(() => ({ plants: [] })),
+                ]);
+
+                // Try to normalize based on common shapes
+                state.categories = catsRes?.categories || catsRes?.data || catsRes || [];
+                const list = plantsRes?.plants || plantsRes?.data || plantsRes?.items || plantsRes || [];
+                state.plants = Array.isArray(list) ? list : [];
+
+                renderCategories();
+                filterAndRender();
+            } catch (err) {
+                console.error(err);
+                setStatus('Failed to load data. Please refresh.');
+                els.grid.innerHTML = '<div class="status">Could not reach the API.</div>'
+            }
+        }
+
+        async function openDetail(id, fallbackName, fallbackImg) {
+            try {
+                els.modalMeta.innerHTML = '';
+                els.modal.showModal();
+                els.modalTitle.textContent = fallbackName || 'Plant';
+                els.modalImg.src = fallbackImg || '';
+                els.modalDesc.textContent = 'Loading details…';
+
+                const data = await fetchJSON(API.detail(id));
+                const plant = data?.plant || data?.data || data;
+
+                const name = plant?.name || plant?.plant_name || plant?.title || fallbackName || 'Plant';
+                const img = plant?.image || plant?.img || plant?.photo || fallbackImg;
+                const desc = plant?.description || plant?.desc || plant?.about || '—';
+
+                els.modalTitle.textContent = name;
+                if (img) els.modalImg.src = img;
+                els.modalDesc.textContent = desc;
+
+                // Render a few known/likely fields if they exist
+                const meta = [];
+                addMeta(meta, 'Category', plant?.category || plant?.category_name || plant?.type);
+                addMeta(meta, 'Price', plant?.price ? `$${plant.price}` : null);
+                addMeta(meta, 'Water', plant?.water || plant?.watering);
+                addMeta(meta, 'Sunlight', plant?.sunlight || plant?.light);
+                addMeta(meta, 'Size', plant?.size);
+                addMeta(meta, 'Stock', plant?.stock);
+
+                if (meta.length === 0) {
+                    // Fallback: dump first-level keys nicely
+                    const entries = Object.entries(plant || {}).slice(0, 8);
+                    entries.forEach(([k, v]) => addMeta(meta, prettyKey(k), typeof v === 'object' ? JSON.stringify(v) : v));
+                }
+                els.modalMeta.replaceChildren(...meta);
+            } catch (err) {
+                console.error(err);
+                els.modalDesc.textContent = 'Failed to load details.';
+            }
+        }
+
+        function prettyKey(k) { return String(k).replace(/_/g, ' ').replace(/\b\w/g, s => s.toUpperCase()) }
+
+        function addMeta(arr, label, value) {
+            if (value == null || value === '') return;
+            const d = document.createElement('div');
+            d.className = 'item';
+            d.innerHTML = `<div class="muted" style="font-size:12px">${label}</div><div style="margin-top:4px">${value}</div>`;
+            arr.push(d);
+        }
+
+        function closeModal() { els.modal.close(); }
+        window.closeModal = closeModal;
+
+        // Search handlers
+        els.searchBtn.addEventListener('click', filterAndRender);
+        els.search.addEventListener('keydown', (e) => { if (e.key === 'Enter') filterAndRender() });
+
+        // Initial load
+        init();
+    </script>
+</body>
+
+</html>
