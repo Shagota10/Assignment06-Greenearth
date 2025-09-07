@@ -359,3 +359,86 @@ footer {
         text-align: center;
     }
 }
+
+.our-impact {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.our-impact h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.impact-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.impact-card {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 250px;
+}
+
+.impact-card h3 {
+    font-size: 40px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.impact-card p {
+    font-size: 18px;
+    color: #666;
+}
+
+.plant-a-tree-form {
+    background-color: #f0f8f0;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.plant-a-tree-form h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.tree-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.tree-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+}
