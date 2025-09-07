@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Plant Explorer</title>
+    <title>Green Earth</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0f172a;
@@ -317,6 +319,20 @@
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="logo">Green Earth</div>
+        <ul class="nav-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Plant a Tree</a></li>
+        </ul>
+        <a href="#" class="plant-tree-btn">Plant a Tree</a>
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
     <div class="container">
         <header>
             <div class="title">🌿 Plant Explorer</div>
@@ -581,6 +597,7 @@
         // Initial load
         init();
     </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
