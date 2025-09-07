@@ -1,3 +1,10 @@
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
 // Fetch Trees from API
 const treeList = document.getElementById("tree-list");
 
