@@ -1,3 +1,5 @@
+console.log("script.js loaded");
+
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
@@ -27,12 +29,18 @@ async function loadTrees() {
     } catch (err) {
         treeList.innerHTML = "<p>Failed to load trees.</p>";
     }
-}
+    if (treeList) {
+        treeList.innerHTML = "<p>Trees loaded successfully.</p>";
+    } else {
+        treeList.innerHTML = "<p>Failed to load trees.</p>";
+    }
+    treeList.innerHTML = "<p>Failed to load trees.</p>";
 
-loadTrees();
+    loadTrees();
 
-// Form Submission
-document.getElementById("donate-form").addEventListener("submit", e => {
-    e.preventDefault();
+    document.getElementById("donate-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        // your submit logic here
+    });
     alert("Thank you for planting a tree! 🌳");
-});
+}
