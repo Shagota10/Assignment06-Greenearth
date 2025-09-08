@@ -38,7 +38,7 @@
         }
 
         .hero-banner {
-            background: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6") center/cover no-repeat;
+
             color: white;
             text-align: center;
             padding: 5rem 2rem;
@@ -386,13 +386,76 @@
             text-decoration: none
         }
 
-        footer {
-            margin: 28px 0;
-            color: var(--muted);
-            font-size: 13px;
-            text-align: center
+        <style>body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0fff4;
+            /* light green background */
+            color: #333;
+        }
+
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 10%;
+            gap: 40px;
+            flex-wrap: wrap;
+            /* makes responsive */
+        }
+
+        .about-section img {
+            width: 350px;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            max-width: 500px;
+        }
+
+        .about-text h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #1f3c2e;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .about-text ul {
+            padding-left: 20px;
+        }
+
+        .about-text ul li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-text {
+                max-width: 100%;
+            }
+
+            .about-text h2 {
+                font-size: 24px;
+            }
         }
     </style>
+
+
 </head>
 
 <body>
@@ -413,11 +476,14 @@
     <section class="banner">
 
         <div class="hero-banner">
+
+
             <img src="./assets/hero-leaf1.png" alt="Leaf" class="leaf right" />
             <div class="hero-content">
                 <h1>Plant a Tree, Grow a Future</h1>
                 <p>Join our mission to plant 1 million trees and make the Earth greener for future generations.</p>
-                <a href="#" class="cta-button">Get Involved</a>
+                <a href="#" class="cta-button">Get Involved</a><img src="./assets/hero-leaf2.png" alt="Leaf"
+                    class="leaf left" />
             </div>
         </div>
     </section>

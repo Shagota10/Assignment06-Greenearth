@@ -1,18 +1,3 @@
-* @media (max-width: 768px) {
-
-    /* CSS rules for screens 768px or smaller */
-    .about-campaign {
-        flex-direction: column;
-    }
-}
-
-    {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
     line-height: 1.6;
 }
@@ -175,12 +160,7 @@ body {
     font-weight: bold;
 }
 
-    {
-    background: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6") center/cover no-repeat;
-    color: white;
-    text-align: center;
-    padding: 5rem 2rem;
-}
+
 
 .banner h1 {
     font-size: 2.5rem;
