@@ -117,8 +117,57 @@
             margin: 0;
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
             background: radial-gradient(1200px 1200px at 100% -10%, rgba(34, 197, 94, 0.08), transparent),
-                radial-gradient(1200px 1200px at -10% 110%, rgba(59, 130, 246, 0.08), transparent), var(--bg);
+                radial-gradient(1200px 1200px at -10% 110%#CFF0DC(59, 130, 246, 0.08), transparent), var(--bg);
             color: var(--text);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3fcf7;
+            padding: 20px;
+        }
+
+        .categories {
+            width: 220px;
+        }
+
+        .categories h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 8px;
+        }
+
+        .category-list button {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+
+        .category-list button:hover {
+            background: #e6f5ec;
+        }
+
+        .category-list button.active {
+            background: #218838;
+            color: white;
+            font-weight: bold;
         }
 
         .container {
@@ -488,6 +537,38 @@
             <img src="./assets/hero-leaf2.png" alt="Leaf" class="leaf left" />
         </div>
     </section>
+
+    <div class="categories">
+        <h3>Categories</h3>
+        <ul class="category-list">
+            <li><button class="active">All Trees</button></li>
+            <li><button>Fruit Trees</button></li>
+            <li><button>Flowering Trees</button></li>
+            <li><button>Shade Trees</button></li>
+            <li><button>Medicinal Trees</button></li>
+            <li><button>Timber Trees</button></li>
+            <li><button>Evergreen Trees</button></li>
+            <li><button>Ornamental Plants</button></li>
+            <li><button>Bamboo</button></li>
+            <li><button>Climbers</button></li>
+            <li><button>Aquatic Plants</button></li>
+        </ul>
+    </div>
+
+    <script>
+        // Select all category buttons
+        const buttons = document.querySelectorAll(".category-list button");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                // Remove active class from all buttons
+                buttons.forEach(btn => btn.classList.remove("active"));
+                // Add active class to clicked one
+                button.classList.add("active");
+            });
+        });
+    </script>
+
     <div class="container">
         <header>
             <div class="title">🌿 Plant Explorer</div>

@@ -281,6 +281,30 @@ footer {
     }
 }
 
+.plant-container {
+    display: flex;
+    /* Enable flexbox */
+    flex-wrap: wrap;
+    /* Allow wrapping into new rows */
+    justify-content: center;
+    /* Center items horizontally */
+    gap: 20px;
+    /* Add spacing between cards */
+    padding: 20px;
+}
+
+.plant-card {
+    background: #111827;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    width: 250px;
+    /* Fixed card width */
+    text-align: center;
+    flex: 1 1 250px;
+    /* Flexible cards */
+}
+
 .about-campaign {
     padding: 50px 20px;
     background-color: #f9f9f9;
