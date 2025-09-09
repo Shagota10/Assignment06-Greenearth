@@ -437,3 +437,10 @@ footer {
     color: #fff;
     font-size: 14px;
 }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    margin: 40px 0;
+}

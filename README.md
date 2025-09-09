@@ -1,6 +1,6 @@
 ## WELCOME TO ( সহজ সরল সিম্পল ) ASSIGNMENT-006
 
-### 📅 Deadline For 60 marks: 9th September, 2025 (11:59 pm ⏱️)
+### 📅 Deadline For 60 marks: 9th September, 2025 (11:59 pm ⏱️)https://classroom.github.com/a/nVZrg5R9 
 
 ### 📅 Deadline For 50 marks : 13th September , 2025 (6:00 pm⏱️)
 
@@ -10,7 +10,7 @@
 # Green Earth
 
 
-## Private Repository: https://classroom.github.com/a/nVZrg5R9 
+## Private Repository: 
 
 ## Alternative Private Repository: https://classroom.github.com/a/KCGI14ST 
 
@@ -540,5 +540,6 @@ https://openapi.programming-hero.com/api/plant/1
 - **Live Link :** YOUR_DEPLOYED_URL_HERE  
 - **GitHub Private Repository:** YOUR_REPO_URL_HERE  
 
----#   b 1 2 a 6 - g r e e n - e a r t h - S h a g o t a 1 0  
+---#   b 1 2 a 6 - g r e e n - e a r t h - S h a g o t a 1 0 
+ 
  
